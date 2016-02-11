@@ -24,7 +24,8 @@ The sensor signals (accelerometer and gyroscope) were pre-processed by applying 
 
 * Load the features and activity labels from files "features.txt" and "activity_labels.txt"
 * Extract the mean and standard deviation column names and data.
-* Generate test data and train data by implementing getExtractedData function to create result. * * * This function generates test/train data based on the logical parameter passed.
+* Generate test data and train data by implementing getExtractedData function to create result. 
+* This function generates test/train data based on the logical parameter passed.
 * Merges data set.
 * Write cleaned data to a file named tidy_data.txt
 
