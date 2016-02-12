@@ -21,10 +21,10 @@ activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")[,2]
 features <- read.table("./UCI HAR Dataset/features.txt")[,2]
 
 # Extract only the measurements on the mean and standard deviation for each measurement.
-extract_features <- grepl("mean|std", features)
+ext_features <- grepl("mean|std", features)
 
 # Function to extract mean and standard deviation for given data. The parameter isTestData value determines whether to get extracted data for Test or Train data
-getExtractedData <-function(isTestData = logical()){
+get_ExtractedData <-function(isTestData = logical()){
   path <- "train"
   if(isTestData)
   {
@@ -38,7 +38,7 @@ getExtractedData <-function(isTestData = logical()){
   names(X) = features
   
   # Extract only the measurements on the mean and standard deviation for each measurement.
-  X = X[,extract_features]
+  X = X[,ext_features]
   
   # Load activity labels
   y[,2] = activity_labels[y[,1]]
@@ -50,15 +50,15 @@ getExtractedData <-function(isTestData = logical()){
   result
 }
 # Generate test and train data sets
-test_data <- getExtractedData(T)
-train_data <- getExtractedData(F)
+test_data <- get_ExtractedData(T)
+train_data <- get_ExtractedData(F)
 
 # Merge test and train data
-data = rbind(test_data, train_data)
+Merge_data = rbind(test_data, train_data)
 
 id_labels   = c("subject", "Activity_ID", "Activity_Label")
-data_labels = setdiff(colnames(data), id_labels)
-melt_data      = melt(data, id = id_labels, measure.vars = data_labels)
+data_labels = setdiff(colnames(merge_data), id_labels)
+melt_data      = melt(merge_data, id = id_labels, measure.vars = data_labels)
 
 # Apply mean function to dataset using dcast function
 tidy_data   = dcast(melt_data, subject + Activity_Label ~ variable, mean)
